@@ -23,12 +23,19 @@ def draw(canvas):
     canvas.border()
     curses.curs_set(False)
 
-    coroutine = blink(canvas, row, column)
+    coroutines = [blink(canvas, row, column + offset) for offset in range(1, 10, 2)]
 
     while True:
-        coroutine.send(None)
+        for coroutine in coroutines.copy():
+            try:
+                coroutine.send(None)
+            except StopIteration:
+                coroutines.remove(coroutine)
         canvas.refresh()
         time.sleep(1)
+
+        if len(coroutines) == 0:
+            break
 
 
 if __name__ == "__main__":
