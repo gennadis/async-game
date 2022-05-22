@@ -5,7 +5,7 @@ import time
 
 TIC_TIMEOUT = 0.1
 BORDER_OFFSET = 3
-TOTAL_STARS = 150
+TOTAL_STARS = 200
 STAR_SYMBOLS = "+*.:"
 
 
@@ -28,7 +28,7 @@ def create_stars(
 
 async def blink(canvas, row, column, symbol="*"):
     while True:
-        for _ in range(20):
+        for _ in range(random.randint(1, 20)):
             canvas.addstr(row, column, symbol, curses.A_DIM)
             await asyncio.sleep(0)
 
