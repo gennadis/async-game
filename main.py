@@ -1,8 +1,29 @@
 import asyncio
-import time
 import curses
+import random
+import time
 
 TIC_TIMEOUT = 0.1
+BORDER_OFFSET = 3
+TOTAL_STARS = 150
+STAR_SYMBOLS = "+*.:"
+
+
+def create_stars(
+    total_stars: int,
+    screen_height: int,
+    screen_width: int,
+    border_offset: int,
+    symbols: str,
+) -> list[tuple]:
+    stars = []
+    for _ in range(total_stars):
+        x_coordinate = random.randint(border_offset, screen_height - border_offset)
+        y_coordinate = random.randint(border_offset, screen_width - border_offset)
+        symbol = random.choice(symbols)
+        stars.append((x_coordinate, y_coordinate, symbol))
+
+    return stars
 
 
 async def blink(canvas, row, column, symbol="*"):
@@ -25,11 +46,18 @@ async def blink(canvas, row, column, symbol="*"):
 
 
 def draw(canvas):
-    row, column = (5, 20)
     canvas.border()
     curses.curs_set(False)
+    screen_height, screen_width = curses.window.getmaxyx(canvas)
 
-    coroutines = [blink(canvas, row, column + offset) for offset in range(1, 10, 2)]
+    stars = create_stars(
+        total_stars=TOTAL_STARS,
+        screen_height=screen_height,
+        screen_width=screen_width,
+        border_offset=BORDER_OFFSET,
+        symbols=STAR_SYMBOLS,
+    )
+    coroutines = [blink(canvas, row, column, symbol) for row, column, symbol in stars]
 
     while True:
         for coroutine in coroutines.copy():
