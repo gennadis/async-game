@@ -1,20 +1,19 @@
 import asyncio
 import curses
 
+FIRE_ROW_SPEED = -1
+FIRE_COLUMN_SPEED = 0
+
 
 async def fire(
     canvas,
-    start_row: int,
-    start_column: int,
+    row: int,
+    column: int,
     screen_height: int,
     screen_width: int,
-    rows_speed: float = -0.3,
-    columns_speed: int = 0,
+    rows_speed: float = FIRE_ROW_SPEED,
+    columns_speed: float = FIRE_COLUMN_SPEED,
 ) -> None:
-    """Display animation of gun shot, direction and speed can be specified."""
-
-    row, column = start_row, start_column
-
     canvas.addstr(round(row), round(column), "*")
     await asyncio.sleep(0)
 

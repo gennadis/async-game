@@ -10,6 +10,7 @@ def draw(canvas):
     canvas.nodelay(True)
     curses.curs_set(False)
     screen_height, screen_width = curses.window.getmaxyx(canvas)
+    central_row, central_column = screen_height // 2, screen_width // 2
 
     generated_stars = stars.generate(
         screen_height=screen_height,
@@ -22,19 +23,17 @@ def draw(canvas):
 
     fire_animation = gun.fire(
         canvas,
-        start_row=screen_height / 2,
-        start_column=screen_width / 2,
+        row=central_row,
+        column=central_column,
         screen_height=screen_height,
         screen_width=screen_width,
-        rows_speed=-0.3,
-        columns_speed=0,
     )
 
     ship_frame_1, ship_frame_2 = ship.load_frames()
     ship_animation = ship.fly(
         canvas,
-        row=screen_height / 2,
-        column=screen_width / 2,
+        row=central_row,
+        column=central_column,
         frame_1=ship_frame_1,
         frame_2=ship_frame_2,
         screen_height=screen_height,
