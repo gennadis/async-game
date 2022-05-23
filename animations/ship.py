@@ -1,7 +1,7 @@
 import asyncio
 from itertools import cycle
 
-from curses_tools import draw_frame, read_controls
+from curses_tools import draw_frame, read_controls, get_frame_size
 
 SHIP_FRAME_1 = "animations/ship_frame_1.txt"
 SHIP_FRAME_2 = "animations/ship_frame_2.txt"
@@ -19,16 +19,36 @@ def load_frames(
 
 
 async def fly(
-    canvas, row: int, column: int, frame_1: list[str], frame_2: list[str]
+    canvas,
+    row: int,
+    column: int,
+    frame_1: list[str],
+    frame_2: list[str],
+    screen_height: int,
+    screen_width: int,
+    border_offset: int = 1,
 ) -> None:
     frame = cycle([frame_1, frame_2])
+
+    frame_height, frame_width = get_frame_size(frame_1)
+    row, column = row + 1, column - frame_width // 2
+    available_movement_height = screen_height - frame_height - border_offset
+    available_movement_width = screen_width - frame_width - border_offset
 
     while True:
         current_frame = next(frame)
 
         rows_direction, columns_direction, _ = read_controls(canvas)
-        row += rows_direction
-        column += columns_direction
+        row = (
+            min(row + rows_direction, available_movement_height)
+            if rows_direction > 0
+            else max(row + rows_direction, 1)
+        )
+        column = (
+            min(column + columns_direction, available_movement_width)
+            if columns_direction > 0
+            else max(column + columns_direction, 1)
+        )
 
         draw_frame(canvas, row, column, current_frame)
         await asyncio.sleep(0)

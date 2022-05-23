@@ -33,10 +33,12 @@ def draw(canvas):
     ship_frame_1, ship_frame_2 = ship.load_frames()
     ship_animation = ship.fly(
         canvas,
-        row=screen_height / 2 + 1,
-        column=screen_width / 2 - 2,
+        row=screen_height / 2,
+        column=screen_width / 2,
         frame_1=ship_frame_1,
         frame_2=ship_frame_2,
+        screen_height=screen_height,
+        screen_width=screen_width,
     )
 
     coroutines = [*stars_animation, fire_animation, ship_animation]
