@@ -1,7 +1,7 @@
 import asyncio
 from itertools import cycle
 
-from curses_tools import draw_frame
+from curses_tools import draw_frame, read_controls
 
 SHIP_FRAME_1 = "animations/ship_frame_1.txt"
 SHIP_FRAME_2 = "animations/ship_frame_2.txt"
@@ -25,6 +25,11 @@ async def fly(
 
     while True:
         current_frame = next(frame)
+
+        rows_direction, columns_direction, _ = read_controls(canvas)
+        row += rows_direction
+        column += columns_direction
+
         draw_frame(canvas, row, column, current_frame)
         await asyncio.sleep(0)
         draw_frame(canvas, row, column, current_frame, negative=True)
