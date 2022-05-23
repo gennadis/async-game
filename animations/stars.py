@@ -2,13 +2,17 @@ import asyncio
 import curses
 import random
 
+BORDER_OFFSET = 2
+TOTAL_STARS = 200
+STAR_SYMBOLS = "+*.:"
+
 
 def generate(
-    total_stars: int,
     screen_height: int,
     screen_width: int,
-    border_offset: int,
-    symbols: str,
+    total_stars: int = TOTAL_STARS,
+    border_offset: int = BORDER_OFFSET,
+    symbols: str = STAR_SYMBOLS,
 ) -> list[tuple]:
     stars = []
     for _ in range(total_stars):
@@ -20,12 +24,7 @@ def generate(
     return stars
 
 
-async def blink(
-    canvas,
-    row: int,
-    column: int,
-    symbol: str,
-):
+async def blink(canvas, row: int, column: int, symbol: str):
     while True:
         for _ in range(random.randint(1, 20)):
             canvas.addstr(row, column, symbol, curses.A_DIM)
