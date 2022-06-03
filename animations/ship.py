@@ -30,28 +30,25 @@ async def fly(
     screen_width: int,
     border_offset: int = 1,
 ) -> None:
-    frame = cycle([frame_1, frame_2])
-
     frame_height, frame_width = get_frame_size(frame_1)
     row, column = row + 1, column - frame_width // 2
     available_movement_height = screen_height - frame_height - border_offset
     available_movement_width = screen_width - frame_width - border_offset
 
     while True:
-        current_frame = next(frame)
+        for frame in cycle([frame_1, frame_2]):
+            rows_direction, columns_direction, _ = read_controls(canvas)
+            row = (
+                min(row + rows_direction, available_movement_height)
+                if rows_direction > 0
+                else max(row + rows_direction, 1)
+            )
+            column = (
+                min(column + columns_direction, available_movement_width)
+                if columns_direction > 0
+                else max(column + columns_direction, 1)
+            )
 
-        rows_direction, columns_direction, _ = read_controls(canvas)
-        row = (
-            min(row + rows_direction, available_movement_height)
-            if rows_direction > 0
-            else max(row + rows_direction, 1)
-        )
-        column = (
-            min(column + columns_direction, available_movement_width)
-            if columns_direction > 0
-            else max(column + columns_direction, 1)
-        )
-
-        draw_frame(canvas, row, column, current_frame)
-        await asyncio.sleep(0)
-        draw_frame(canvas, row, column, current_frame, negative=True)
+            draw_frame(canvas, row, column, frame)
+            await asyncio.sleep(0)
+            draw_frame(canvas, row, column, frame, negative=True)
