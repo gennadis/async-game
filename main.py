@@ -9,7 +9,11 @@ TIC_TIMEOUT = 0.1
 def draw(canvas):
     canvas.nodelay(True)
     curses.curs_set(False)
+
     screen_height, screen_width = curses.window.getmaxyx(canvas)
+    # window.getmaxyx() returns a tuple (y, x) of the height and width of the window.
+    # https://docs.python.org/3/library/curses.html#curses.window.getmaxyx
+
     central_row, central_column = screen_height // 2, screen_width // 2
 
     generated_stars = stars.generate(
