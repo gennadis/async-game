@@ -16,7 +16,7 @@ def generate(
 ) -> list[tuple]:
     stars = []
     for _ in range(total_stars):
-        row = random.randint(border_offset, screen_height - border_offset)
+        row = random.randint(border_offset, screen_height - 2 * border_offset)
         column = random.randint(border_offset, screen_width - border_offset)
         symbol = random.choice(symbols)
         stars.append((row, column, symbol))
