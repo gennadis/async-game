@@ -7,6 +7,7 @@ TIC_TIMEOUT = 0.1
 
 
 def draw(canvas):
+    canvas.border()
     canvas.nodelay(True)
     curses.curs_set(False)
 
@@ -53,7 +54,6 @@ def draw(canvas):
             except StopIteration:
                 coroutines.remove(coroutine)
 
-        canvas.border()
         canvas.refresh()
         time.sleep(TIC_TIMEOUT)
 
