@@ -48,19 +48,16 @@ async def fly(
 ) -> None:
     frame_height, frame_width = get_frame_size(frame_1)
 
-    while True:
-        for frame in cycle([frame_1, frame_2]):
-            rows_direction, columns_direction, _ = read_controls(canvas)
+    for frame in cycle([frame_1, frame_2]):
+        rows_direction, columns_direction, _ = read_controls(canvas)
 
-            if rows_direction:
-                row = calculate_coordinate(
-                    row, screen_height, rows_direction, frame_height
-                )
-            if columns_direction:
-                column = calculate_coordinate(
-                    column, screen_width, columns_direction, frame_width
-                )
+        if rows_direction:
+            row = calculate_coordinate(row, screen_height, rows_direction, frame_height)
+        if columns_direction:
+            column = calculate_coordinate(
+                column, screen_width, columns_direction, frame_width
+            )
 
-            draw_frame(canvas, row, column, frame)
-            await asyncio.sleep(0)
-            draw_frame(canvas, row, column, frame, True)
+        draw_frame(canvas, row, column, frame)
+        await asyncio.sleep(0)
+        draw_frame(canvas, row, column, frame, True)
