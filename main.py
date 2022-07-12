@@ -38,7 +38,7 @@ def draw(canvas):
     ship_animation = ship.fly_ship(
         canvas,
         row=central_row,
-        column=central_column - 2,  # position spaceship right in the middle
+        column=central_column,
         frame_1=ship_frame_1,
         frame_2=ship_frame_2,
         screen_height=screen_height,
