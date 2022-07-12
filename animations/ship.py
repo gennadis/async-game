@@ -1,7 +1,8 @@
-import asyncio
 from itertools import cycle
 
-from curses_tools import draw_frame, read_controls, get_frame_size
+from curses_tools import draw_frame, get_frame_size, read_controls
+
+from animations.utils import sleep
 
 SHIP_FRAME_1 = "animations/ship_frame_1.txt"
 SHIP_FRAME_2 = "animations/ship_frame_2.txt"
@@ -59,5 +60,5 @@ async def fly_ship(
             )
 
         draw_frame(canvas, row, column, frame)
-        await asyncio.sleep(0)
+        await sleep(2)
         draw_frame(canvas, row, column, frame, True)
