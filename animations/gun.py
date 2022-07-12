@@ -1,4 +1,5 @@
 import curses
+
 from animations.utils import sleep
 
 FIRE_ROW_SPEED = -1

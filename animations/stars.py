@@ -1,6 +1,6 @@
-import asyncio
 import curses
 import random
+
 from animations.utils import sleep
 
 BORDER_OFFSET = 1

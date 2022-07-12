@@ -1,8 +1,7 @@
 from itertools import cycle
 
-from curses_tools import draw_frame, get_frame_size, read_controls
-
 from animations.utils import sleep
+from curses_tools import draw_frame, get_frame_size, read_controls
 
 SHIP_FRAME_1 = "animations/ship_frame_1.txt"
 SHIP_FRAME_2 = "animations/ship_frame_2.txt"
