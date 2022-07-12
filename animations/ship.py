@@ -37,7 +37,7 @@ def calculate_coordinate(
     return next_coordinate
 
 
-async def fly(
+async def fly_ship(
     canvas,
     row: int,
     column: int,
