@@ -34,13 +34,12 @@ def draw(canvas):
         screen_width=screen_width,
     )
 
-    ship_frame_1, ship_frame_2 = ship.load_frames()
+    ship_frames = ship.load_frames()
     ship_animation = ship.fly_ship(
         canvas,
         row=central_row,
         column=central_column,
-        frame_1=ship_frame_1,
-        frame_2=ship_frame_2,
+        frames=ship_frames,
         screen_height=screen_height,
         screen_width=screen_width,
     )

@@ -12,7 +12,7 @@ def load_frames(frames_filepath: list = [SHIP_FRAME_1, SHIP_FRAME_2]) -> list[st
     for frame_filepath in frames_filepath:
         with open(frame_filepath, "r") as file:
             frame = file.read()
-            frames.append(frame)
+            frames.extend([frame, frame])
 
     return frames
 
@@ -21,18 +21,17 @@ async def fly_ship(
     canvas,
     row: int,
     column: int,
-    frame_1: str,
-    frame_2: str,
+    frames: list[str],
     screen_height: int,
     screen_width: int,
     border_offset: int = 1,
 ) -> None:
-    frame_height, frame_width = get_frame_size(frame_1)
+    frame_height, frame_width = get_frame_size(frames[0])
     row, column = row + 1, column - frame_width // 2
     available_movement_height = screen_height - frame_height - border_offset
     available_movement_width = screen_width - frame_width - border_offset
 
-    for frame in cycle([frame_1, frame_2]):
+    for frame in cycle(frames):
         rows_direction, columns_direction, _ = read_controls(canvas)
 
         row = (
@@ -47,5 +46,5 @@ async def fly_ship(
         )
 
         draw_frame(canvas, row, column, frame)
-        await sleep(2)
+        await sleep()
         draw_frame(canvas, row, column, frame, True)
