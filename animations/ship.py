@@ -3,8 +3,8 @@ from itertools import cycle
 
 from curses_tools import draw_frame, get_frame_size, read_controls
 
-SHIP_FRAME_1 = "animations/ship_frame_1.txt"
-SHIP_FRAME_2 = "animations/ship_frame_2.txt"
+SHIP_FRAME_1 = "animations/sprites/ship_frame_1.txt"
+SHIP_FRAME_2 = "animations/sprites/ship_frame_2.txt"
 
 
 def load_frames(frames_filepath: list = [SHIP_FRAME_1, SHIP_FRAME_2]) -> list[str]:
