@@ -1,6 +1,6 @@
-import asyncio
 import curses
 import random
+from utils import sleep
 
 BORDER_OFFSET = 1
 TOTAL_STARS = 200
@@ -26,18 +26,14 @@ def generate(
 
 async def blink(canvas, row: int, column: int, symbol: str):
     while True:
-        for _ in range(random.randint(1, 20)):
-            canvas.addstr(row, column, symbol, curses.A_DIM)
-            await asyncio.sleep(0)
+        canvas.addstr(row, column, symbol, curses.A_DIM)
+        await sleep(random.randint(1, 20))
 
-        for _ in range(3):
-            canvas.addstr(row, column, symbol)
-            await asyncio.sleep(0)
+        canvas.addstr(row, column, symbol)
+        await sleep(3)
 
-        for _ in range(5):
-            canvas.addstr(row, column, symbol, curses.A_BOLD)
-            await asyncio.sleep(0)
+        canvas.addstr(row, column, symbol, curses.A_BOLD)
+        await sleep(5)
 
-        for _ in range(3):
-            canvas.addstr(row, column, symbol)
-            await asyncio.sleep(0)
+        canvas.addstr(row, column, symbol)
+        await sleep(3)
