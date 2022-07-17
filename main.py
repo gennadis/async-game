@@ -4,7 +4,7 @@ import time
 from animations import gun, ship, stars, garbage
 
 TIC_TIMEOUT = 0.1
-coroutines = []
+COROUTINES = []
 
 
 def draw(canvas):
@@ -50,17 +50,16 @@ def draw(canvas):
         frames=garbage_frames,
         screen_width=screen_width,
     )
-
-    coroutines.extend(
+    COROUTINES.extend(
         [*stars_animation, fire_animation, ship_animation, garbage_animation]
     )
 
-    while coroutines:
-        for coroutine in coroutines.copy():
+    while COROUTINES:
+        for coroutine in COROUTINES.copy():
             try:
                 coroutine.send(None)
             except StopIteration:
-                coroutines.remove(coroutine)
+                COROUTINES.remove(coroutine)
 
         canvas.refresh()
         time.sleep(TIC_TIMEOUT)
