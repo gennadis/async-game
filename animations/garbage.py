@@ -1,6 +1,6 @@
 import asyncio
 import random
-from main import coroutines
+from main import COROUTINES
 
 from curses_tools import draw_frame
 
@@ -47,10 +47,17 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float = 0.5):
         row += speed
 
 
-async def fill_orbit_with_garbage(canvas, frames: list[str], screen_width: int):
+async def fill_orbit_with_garbage(
+    canvas,
+    frames: list[str],
+    screen_width: int,
+    timeout: int = 10,
+):
     while True:
-        frame = random.choice(frames)
-        column = random.randint(1, screen_width)
-        for _ in range(random.randint(1, 10)):
+        for _ in range(random.randint(1, timeout)):
             await asyncio.sleep(0)
-        await fly_garbage(canvas, column=column, garbage_frame=frame)
+
+        column = random.randint(1, screen_width)
+        frame = random.choice(frames)
+        coroutine = fly_garbage(canvas, column, frame)
+        COROUTINES.append(coroutine)
