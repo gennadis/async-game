@@ -48,3 +48,11 @@ DOWN_KEY_CODE = 258
 
 # Gameover
 GAMEOVER_FRAME = ["animations/sprites/gameover.txt"]
+
+# Explosion
+EXPLOSION_FRAMES = [
+    "animations/sprites/explosion_1.txt",
+    "animations/sprites/explosion_2.txt",
+    "animations/sprites/explosion_3.txt",
+    "animations/sprites/explosion_4.txt",
+]
