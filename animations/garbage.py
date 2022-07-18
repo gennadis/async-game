@@ -4,6 +4,7 @@ import random
 import settings
 from curses_tools import draw_frame, get_frame_size
 from animations.obstacles import Obstacle, show_obstacles
+from animations.explosion import explode
 
 
 async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
@@ -32,6 +33,11 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
         if obstacle in settings.OBSTACLES_IN_LAST_COLLISIONS:
             settings.OBSTACLES_IN_LAST_COLLISIONS.remove(obstacle)
             settings.OBSTACLES.remove(obstacle)
+            await explode(
+                canvas,
+                center_row=row + (frame_size_row / 2),
+                center_column=column + (frame_size_column / 2),
+            )
             return
 
         row += speed
