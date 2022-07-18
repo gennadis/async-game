@@ -5,16 +5,6 @@ import settings
 from curses_tools import draw_frame
 
 
-def load_frames(frames_filepath: list) -> list[str]:
-    frames = []
-    for frame_filepath in frames_filepath:
-        with open(frame_filepath, "r") as file:
-            frame = file.read()
-            frames.append(frame)
-
-    return frames
-
-
 async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     """Animate garbage, flying from top to bottom. Сolumn position will stay same, as specified on start."""
     rows_number, columns_number = canvas.getmaxyx()

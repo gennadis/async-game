@@ -5,16 +5,6 @@ import settings
 from curses_tools import draw_frame, get_frame_size, read_controls
 
 
-def load_frames(frames_filepath: list) -> list[str]:
-    frames = []
-    for frame_filepath in frames_filepath:
-        with open(frame_filepath, "r") as file:
-            frame = file.read()
-            frames.extend([frame, frame])
-
-    return frames
-
-
 async def fly_ship(
     canvas,
     row: int,

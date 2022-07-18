@@ -3,6 +3,7 @@ import time
 
 import settings
 from animations import garbage, gun, ship, stars
+from utils import load_frames
 
 
 def draw(canvas):
@@ -36,7 +37,7 @@ def draw(canvas):
         screen_width=SCREEN_WIDTH,
     )
 
-    ship_frames = ship.load_frames(settings.SHIP_FRAMES)
+    ship_frames = load_frames(settings.SHIP_FRAMES, double=True)
     ship_animation = ship.fly_ship(
         canvas,
         row=central_row,
@@ -45,7 +46,7 @@ def draw(canvas):
         screen_height=SCREEN_HEIGHT,
         screen_width=SCREEN_WIDTH,
     )
-    garbage_frames = garbage.load_frames(settings.GARBAGE_FRAMES)
+    garbage_frames = load_frames(settings.GARBAGE_FRAMES)
     garbage_animation = garbage.fill_orbit_with_garbage(
         canvas,
         frames=garbage_frames,
