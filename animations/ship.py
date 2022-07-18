@@ -49,7 +49,7 @@ async def fly_ship(canvas, row: int, column: int) -> None:
             )
         for obstacle in settings.OBSTACLES:
             if obstacle.has_collision(row, column, frame_height, frame_width):
-                await show_gameover(canvas, row, column, frame=gameover_frame)
+                await show_gameover(canvas, gameover_frame)
 
         draw_frame(canvas, row, column, frame)
         await asyncio.sleep(0)
