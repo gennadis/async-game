@@ -37,6 +37,8 @@ def draw(canvas):
         screen_width=SCREEN_WIDTH,
     )
 
+    gameover_frame = load_frames(settings.GAMEOVER_FRAME)[0]
+
     ship_frames = load_frames(settings.SHIP_FRAMES, double=True)
     ship_animation = ship.fly_ship(
         canvas,
@@ -45,6 +47,7 @@ def draw(canvas):
         frames=ship_frames,
         screen_height=SCREEN_HEIGHT,
         screen_width=SCREEN_WIDTH,
+        gameover_frame=gameover_frame,
     )
     garbage_frames = load_frames(settings.GARBAGE_FRAMES)
     garbage_animation = garbage.fill_orbit_with_garbage(

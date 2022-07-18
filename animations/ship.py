@@ -5,6 +5,7 @@ import settings
 from curses_tools import draw_frame, get_frame_size, read_controls
 from physics import update_speed
 from animations.gun import fire
+from animations.gameover import show_gameover
 
 
 async def fly_ship(
@@ -14,6 +15,7 @@ async def fly_ship(
     frames: list[str],
     screen_height: int,
     screen_width: int,
+    gameover_frame: str,
 ) -> None:
     frame_height, frame_width = get_frame_size(frames[0])
     row, column = row + 1, column - frame_width // 2
@@ -54,6 +56,9 @@ async def fly_ship(
                     screen_width=screen_width,
                 )
             )
+        for obstacle in settings.OBSTACLES:
+            if obstacle.has_collision(row, column, frame_height, frame_width):
+                await show_gameover(canvas, row, column, frame=gameover_frame)
 
         draw_frame(canvas, row, column, frame)
         await asyncio.sleep(0)
