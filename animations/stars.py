@@ -4,13 +4,8 @@ import random
 from utils import sleep
 
 
-def generate(
-    screen_height: int,
-    screen_width: int,
-    total_stars: int,
-    border_offset: int,
-    symbols: str,
-) -> list[tuple]:
+def generate(canvas, total_stars: int, border_offset: int, symbols: str) -> list[tuple]:
+    screen_height, screen_width = canvas.getmaxyx()
     stars = []
     for _ in range(total_stars):
         row = random.randint(border_offset, screen_height - 2 * border_offset)

@@ -9,15 +9,14 @@ def draw(canvas):
     canvas.nodelay(True)
     curses.curs_set(False)
 
-    SCREEN_HEIGHT, SCREEN_WIDTH = curses.window.getmaxyx(canvas)
     # window.getmaxyx() returns a tuple (y, x) of the height and width of the window.
     # https://docs.python.org/3/library/curses.html#curses.window.getmaxyx
 
-    central_row, central_column = SCREEN_HEIGHT // 2, SCREEN_WIDTH // 2
+    screen_height, screen_width = canvas.getmaxyx()
+    central_row, central_column = screen_height // 2, screen_width // 2
 
     generated_stars = stars.generate(
-        screen_height=SCREEN_HEIGHT,
-        screen_width=SCREEN_WIDTH,
+        canvas,
         total_stars=settings.TOTAL_STARS,
         border_offset=settings.BORDER_OFFSET,
         symbols=settings.STAR_SYMBOLS,
@@ -31,21 +30,16 @@ def draw(canvas):
         canvas,
         row=central_row,
         column=central_column,
-        screen_height=SCREEN_HEIGHT,
-        screen_width=SCREEN_WIDTH,
     )
 
     ship_animation = ship.fly_ship(
         canvas,
         row=central_row,
         column=central_column,
-        screen_height=SCREEN_HEIGHT,
-        screen_width=SCREEN_WIDTH,
     )
 
     garbage_animation = garbage.fill_orbit_with_garbage(
         canvas,
-        screen_width=SCREEN_WIDTH,
         delay=settings.GARBAGE_DELAY,
     )
 

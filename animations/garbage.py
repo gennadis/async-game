@@ -10,10 +10,11 @@ from utils import load_frames
 
 async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     """Animate garbage, flying from top to bottom. Сolumn position will stay same, as specified on start."""
-    rows_number, columns_number = canvas.getmaxyx()
+
+    screen_height, screen_width = canvas.getmaxyx()
 
     column = max(column, 0)
-    column = min(column, columns_number - 1)
+    column = min(column, screen_width - 1)
 
     row = 0
 
@@ -25,7 +26,7 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     if settings.DEBUG:
         settings.COROUTINES.append(show_obstacles(canvas, settings.OBSTACLES))
 
-    while row < rows_number:
+    while row < screen_height:
         draw_frame(canvas, row, column, garbage_frame)
         obstacle.row = row
         await asyncio.sleep(0)
@@ -46,9 +47,9 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     settings.OBSTACLES.remove(obstacle)
 
 
-async def fill_orbit_with_garbage(canvas, screen_width: int, delay: int):
+async def fill_orbit_with_garbage(canvas, delay: int):
+    _, screen_width = canvas.getmaxyx()
     garbage_frames = load_frames(settings.GARBAGE_FRAMES)
-
     while True:
         column = random.randint(1, screen_width)
         frame = random.choice(garbage_frames)
