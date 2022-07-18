@@ -2,7 +2,8 @@ import asyncio
 import random
 
 import settings
-from curses_tools import draw_frame
+from curses_tools import draw_frame, get_frame_size
+from animations.obstacles import Obstacle, show_obstacles
 
 
 async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
@@ -14,11 +15,20 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
 
     row = 0
 
+    frame_size_row, frame_size_column = get_frame_size(garbage_frame)
+    obstacle = Obstacle(row, column, frame_size_row, frame_size_column)
+
+    settings.OBSTACLES.append(obstacle)
+    settings.COROUTINES.append(show_obstacles(canvas, settings.OBSTACLES))
+
     while row < rows_number:
         draw_frame(canvas, row, column, garbage_frame)
+        obstacle.row = row
         await asyncio.sleep(0)
         draw_frame(canvas, row, column, garbage_frame, negative=True)
         row += speed
+
+    settings.OBSTACLES.remove(obstacle)
 
 
 async def fill_orbit_with_garbage(
