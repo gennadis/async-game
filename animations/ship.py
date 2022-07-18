@@ -2,28 +2,30 @@ import asyncio
 from itertools import cycle
 
 import settings
+from animations.gameover import show_gameover
+from animations.gun import fire
 from curses_tools import draw_frame, get_frame_size, read_controls
 from physics import update_speed
-from animations.gun import fire
-from animations.gameover import show_gameover
+from utils import load_frames
 
 
 async def fly_ship(
     canvas,
     row: int,
     column: int,
-    frames: list[str],
     screen_height: int,
     screen_width: int,
-    gameover_frame: str,
 ) -> None:
-    frame_height, frame_width = get_frame_size(frames[0])
+    gameover_frame = load_frames(settings.GAMEOVER_FRAME)[0]
+    ship_frames = load_frames(settings.SHIP_FRAMES, double=True)
+
+    frame_height, frame_width = get_frame_size(ship_frames[0])
     row, column = row + 1, column - frame_width // 2
     available_movement_height = screen_height - frame_height - settings.BORDER_OFFSET
     available_movement_width = screen_width - frame_width - settings.BORDER_OFFSET
     row_speed, column_speed = (0, 0)
 
-    for frame in cycle(frames):
+    for frame in cycle(ship_frames):
         rows_direction, columns_direction, space_pressed = read_controls(canvas)
         row_speed, column_speed = update_speed(
             row_speed=row_speed,

@@ -1,6 +1,7 @@
 import asyncio
+
 import settings
-from curses_tools import get_frame_size, draw_frame
+from curses_tools import draw_frame, get_frame_size
 from utils import load_frames
 
 
