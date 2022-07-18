@@ -19,7 +19,9 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     obstacle = Obstacle(row, column, frame_size_row, frame_size_column)
 
     settings.OBSTACLES.append(obstacle)
-    settings.COROUTINES.append(show_obstacles(canvas, settings.OBSTACLES))
+
+    if settings.DEBUG:
+        settings.COROUTINES.append(show_obstacles(canvas, settings.OBSTACLES))
 
     while row < rows_number:
         draw_frame(canvas, row, column, garbage_frame)
