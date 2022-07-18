@@ -1,23 +1,20 @@
 import curses
 import random
-from utils import sleep
 
-BORDER_OFFSET = 1
-TOTAL_STARS = 200
-STAR_SYMBOLS = "+*.:"
+from utils import sleep
 
 
 def generate(
     screen_height: int,
     screen_width: int,
-    total_stars: int = TOTAL_STARS,
-    border_offset: int = BORDER_OFFSET,
-    symbols: str = STAR_SYMBOLS,
+    total_stars: int,
+    border_offset: int,
+    symbols: str,
 ) -> list[tuple]:
     stars = []
     for _ in range(total_stars):
         row = random.randint(border_offset, screen_height - 2 * border_offset)
-        column = random.randint(border_offset, screen_width - border_offset)
+        column = random.randint(border_offset, screen_width - 2 * border_offset)
         symbol = random.choice(symbols)
         stars.append((row, column, symbol))
 

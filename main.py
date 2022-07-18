@@ -4,24 +4,24 @@ import time
 import settings
 from animations import garbage, gun, ship, stars
 
-TIC_TIMEOUT = 0.1
-GARBAGE_DELAY = 10
-
 
 def draw(canvas):
     canvas.border()
     canvas.nodelay(True)
     curses.curs_set(False)
 
-    screen_height, screen_width = curses.window.getmaxyx(canvas)
+    SCREEN_HEIGHT, SCREEN_WIDTH = curses.window.getmaxyx(canvas)
     # window.getmaxyx() returns a tuple (y, x) of the height and width of the window.
     # https://docs.python.org/3/library/curses.html#curses.window.getmaxyx
 
-    central_row, central_column = screen_height // 2, screen_width // 2
+    central_row, central_column = SCREEN_HEIGHT // 2, SCREEN_WIDTH // 2
 
     generated_stars = stars.generate(
-        screen_height=screen_height,
-        screen_width=screen_width,
+        screen_height=SCREEN_HEIGHT,
+        screen_width=SCREEN_WIDTH,
+        total_stars=settings.TOTAL_STARS,
+        border_offset=settings.BORDER_OFFSET,
+        symbols=settings.STAR_SYMBOLS,
     )
     stars_animation = [
         stars.blink(canvas, row, column, symbol)
@@ -32,29 +32,29 @@ def draw(canvas):
         canvas,
         row=central_row,
         column=central_column,
-        screen_height=screen_height,
-        screen_width=screen_width,
+        screen_height=SCREEN_HEIGHT,
+        screen_width=SCREEN_WIDTH,
     )
 
-    ship_frames = ship.load_frames()
+    ship_frames = ship.load_frames(settings.SHIP_FRAMES)
     ship_animation = ship.fly_ship(
         canvas,
         row=central_row,
         column=central_column,
         frames=ship_frames,
-        screen_height=screen_height,
-        screen_width=screen_width,
+        screen_height=SCREEN_HEIGHT,
+        screen_width=SCREEN_WIDTH,
     )
-    garbage_frames = garbage.load_frames()
+    garbage_frames = garbage.load_frames(settings.GARBAGE_FRAMES)
+    garbage_animation = garbage.fill_orbit_with_garbage(
+        canvas,
+        frames=garbage_frames,
+        screen_width=SCREEN_WIDTH,
+        delay=settings.GARBAGE_DELAY,
+    )
 
-    settings.COROUTINES.extend([*stars_animation, fire_animation, ship_animation])
-    settings.COROUTINES.append(
-        garbage.fill_orbit_with_garbage(
-            canvas,
-            frames=garbage_frames,
-            screen_width=screen_width,
-            delay=GARBAGE_DELAY,
-        )
+    settings.COROUTINES.extend(
+        [*stars_animation, fire_animation, ship_animation, garbage_animation]
     )
 
     while settings.COROUTINES:
@@ -65,7 +65,7 @@ def draw(canvas):
                 settings.COROUTINES.remove(coroutine)
 
         canvas.refresh()
-        time.sleep(TIC_TIMEOUT)
+        time.sleep(settings.TIC_TIMEOUT)
 
 
 if __name__ == "__main__":

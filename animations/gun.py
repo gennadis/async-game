@@ -1,19 +1,15 @@
 import asyncio
 import curses
 
-FIRE_ROW_SPEED = -1
-FIRE_COLUMN_SPEED = 0
+import settings
 
 
 async def fire(
-    canvas,
-    row: int,
-    column: int,
-    screen_height: int,
-    screen_width: int,
-    rows_speed: float = FIRE_ROW_SPEED,
-    columns_speed: float = FIRE_COLUMN_SPEED,
+    canvas, row: int, column: int, screen_height: int, screen_width: int
 ) -> None:
+    rows_speed = settings.FIRE_ROW_SPEED
+    columns_speed = settings.FIRE_COLUMN_SPEED
+
     canvas.addstr(round(row), round(column), "*")
     await asyncio.sleep(0)
 

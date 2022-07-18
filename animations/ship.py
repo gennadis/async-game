@@ -1,13 +1,11 @@
 import asyncio
 from itertools import cycle
 
+import settings
 from curses_tools import draw_frame, get_frame_size, read_controls
 
-SHIP_FRAME_1 = "animations/sprites/ship_frame_1.txt"
-SHIP_FRAME_2 = "animations/sprites/ship_frame_2.txt"
 
-
-def load_frames(frames_filepath: list = [SHIP_FRAME_1, SHIP_FRAME_2]) -> list[str]:
+def load_frames(frames_filepath: list) -> list[str]:
     frames = []
     for frame_filepath in frames_filepath:
         with open(frame_filepath, "r") as file:
@@ -24,12 +22,11 @@ async def fly_ship(
     frames: list[str],
     screen_height: int,
     screen_width: int,
-    border_offset: int = 1,
 ) -> None:
     frame_height, frame_width = get_frame_size(frames[0])
     row, column = row + 1, column - frame_width // 2
-    available_movement_height = screen_height - frame_height - border_offset
-    available_movement_width = screen_width - frame_width - border_offset
+    available_movement_height = screen_height - frame_height - settings.BORDER_OFFSET
+    available_movement_width = screen_width - frame_width - settings.BORDER_OFFSET
 
     for frame in cycle(frames):
         rows_direction, columns_direction, _ = read_controls(canvas)
