@@ -1,10 +1,11 @@
 import curses
 import time
 
-from animations import gun, ship, stars, garbage
+import settings
+from animations import garbage, gun, ship, stars
 
 TIC_TIMEOUT = 0.1
-COROUTINES = []
+GARBAGE_DELAY = 10
 
 
 def draw(canvas):
@@ -45,26 +46,29 @@ def draw(canvas):
         screen_width=screen_width,
     )
     garbage_frames = garbage.load_frames()
-    garbage_animation = garbage.fill_orbit_with_garbage(
-        canvas,
-        frames=garbage_frames,
-        screen_width=screen_width,
-    )
-    COROUTINES.extend(
-        [*stars_animation, fire_animation, ship_animation, garbage_animation]
+
+    settings.COROUTINES.extend([*stars_animation, fire_animation, ship_animation])
+    settings.COROUTINES.append(
+        garbage.fill_orbit_with_garbage(
+            canvas,
+            frames=garbage_frames,
+            screen_width=screen_width,
+            delay=GARBAGE_DELAY,
+        )
     )
 
-    while COROUTINES:
-        for coroutine in COROUTINES.copy():
+    while settings.COROUTINES:
+        for coroutine in settings.COROUTINES.copy():
             try:
                 coroutine.send(None)
             except StopIteration:
-                COROUTINES.remove(coroutine)
+                settings.COROUTINES.remove(coroutine)
 
         canvas.refresh()
         time.sleep(TIC_TIMEOUT)
 
 
 if __name__ == "__main__":
+    settings.initialize()
     curses.update_lines_cols()
     curses.wrapper(draw)

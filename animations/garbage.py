@@ -1,8 +1,7 @@
 import asyncio
 import random
-from main import COROUTINES
-from utils import sleep
 
+import settings
 from curses_tools import draw_frame
 
 DUCK_FRAME = "animations/sprites/duck.txt"
@@ -52,12 +51,18 @@ async def fill_orbit_with_garbage(
     canvas,
     frames: list[str],
     screen_width: int,
-    timeout: int = 10,
+    delay: int,
 ):
+
     while True:
         column = random.randint(1, screen_width)
         frame = random.choice(frames)
-        coroutine = fly_garbage(canvas, column, frame)
-        COROUTINES.append(coroutine)
-
-        await sleep(timeout)
+        settings.COROUTINES.append(
+            fly_garbage(
+                canvas,
+                column=column,
+                garbage_frame=frame,
+            )
+        )
+        for _ in range(delay):
+            await asyncio.sleep(0)
