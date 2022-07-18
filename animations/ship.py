@@ -4,6 +4,7 @@ from itertools import cycle
 import settings
 from curses_tools import draw_frame, get_frame_size, read_controls
 from physics import update_speed
+from animations.gun import fire
 
 
 async def fly_ship(
@@ -21,7 +22,7 @@ async def fly_ship(
     row_speed, column_speed = (0, 0)
 
     for frame in cycle(frames):
-        rows_direction, columns_direction, _ = read_controls(canvas)
+        rows_direction, columns_direction, space_pressed = read_controls(canvas)
         row_speed, column_speed = update_speed(
             row_speed=row_speed,
             column_speed=column_speed,
@@ -42,6 +43,17 @@ async def fly_ship(
 
         row += row_speed
         column += column_speed
+
+        if space_pressed:
+            settings.COROUTINES.append(
+                fire(
+                    canvas,
+                    row=row,
+                    column=column + 2,  # gun barrel sprite correction
+                    screen_height=screen_height,
+                    screen_width=screen_width,
+                )
+            )
 
         draw_frame(canvas, row, column, frame)
         await asyncio.sleep(0)
