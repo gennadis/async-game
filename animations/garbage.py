@@ -28,6 +28,12 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
         obstacle.row = row
         await asyncio.sleep(0)
         draw_frame(canvas, row, column, garbage_frame, negative=True)
+
+        if obstacle in settings.OBSTACLES_IN_LAST_COLLISIONS:
+            settings.OBSTACLES_IN_LAST_COLLISIONS.remove(obstacle)
+            settings.OBSTACLES.remove(obstacle)
+            return
+
         row += speed
 
     settings.OBSTACLES.remove(obstacle)

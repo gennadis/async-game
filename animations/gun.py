@@ -34,6 +34,7 @@ async def fire(
 
         for obstacle in settings.OBSTACLES:
             if obstacle.has_collision(row, column):
+                settings.OBSTACLES_IN_LAST_COLLISIONS.append(obstacle)
                 return
 
         row += rows_speed
