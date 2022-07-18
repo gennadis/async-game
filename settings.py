@@ -1,7 +1,9 @@
 def initialize():
     """Initialize global variables."""
     global COROUTINES
+    global OBSTACLES
     COROUTINES = []
+    OBSTACLES = []
 
 
 TIC_TIMEOUT = 0.1
