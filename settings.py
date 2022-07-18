@@ -2,8 +2,10 @@ def initialize():
     """Initialize global variables."""
     global COROUTINES
     global OBSTACLES
+    global OBSTACLES_IN_LAST_COLLISIONS
     COROUTINES = []
     OBSTACLES = []
+    OBSTACLES_IN_LAST_COLLISIONS = []
 
 
 DEBUG = False
