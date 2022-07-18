@@ -6,7 +6,6 @@ from animations import garbage, gun, ship, stars
 
 
 def draw(canvas):
-    canvas.border()
     canvas.nodelay(True)
     curses.curs_set(False)
 
@@ -62,6 +61,7 @@ def draw(canvas):
                 settings.COROUTINES.remove(coroutine)
 
         canvas.refresh()
+        canvas.border()  # fix objects braking borders bug
         time.sleep(settings.TIC_TIMEOUT)
 
 
