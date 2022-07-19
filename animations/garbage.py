@@ -1,4 +1,3 @@
-import asyncio
 import random
 from typing import Coroutine, Optional
 
@@ -30,7 +29,7 @@ async def fly_garbage(
     while row < screen_height:
         draw_frame(canvas, row, column, garbage_frame)
         obstacle.row = row
-        await asyncio.sleep(0)
+        await sleep(1)
         draw_frame(canvas, row, column, garbage_frame, negative=True)
 
         if obstacle in settings.OBSTACLES_IN_LAST_COLLISIONS:
@@ -68,7 +67,7 @@ async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
             )
             await sleep(tic=delay)
         else:
-            await asyncio.sleep(0)
+            await sleep(1)
 
 
 def get_garbage_delay_tics(year) -> Optional[int]:

@@ -1,6 +1,6 @@
-import asyncio
-
 from curses_tools import draw_frame
+
+from utils import sleep
 
 
 class Obstacle:
@@ -55,7 +55,7 @@ async def show_obstacles(canvas, obstacles):
         for row, column, frame in boxes:
             draw_frame(canvas, row, column, frame)
 
-        await asyncio.sleep(0)
+        await sleep(1)
 
         for row, column, frame in boxes:
             draw_frame(canvas, row, column, frame, negative=True)

@@ -1,10 +1,9 @@
-import asyncio
 import curses
 from typing import Coroutine
 
 import settings
 from curses_tools import draw_frame, get_frame_size
-from utils import load_frames
+from utils import load_frames, sleep
 
 
 async def explode(canvas, center_row: int, center_column: int) -> Coroutine:
@@ -17,6 +16,6 @@ async def explode(canvas, center_row: int, center_column: int) -> Coroutine:
 
     for frame in explosion_frames:
         draw_frame(canvas, corner_row, corner_column, frame)
-        await asyncio.sleep(0)
+        await sleep(1)
         draw_frame(canvas, corner_row, corner_column, frame, negative=True)
-        await asyncio.sleep(0)
+        await sleep(1)

@@ -2,6 +2,7 @@ import asyncio
 from typing import Coroutine
 
 from curses_tools import draw_frame, get_frame_size
+from utils import sleep
 
 
 async def show_gameover(canvas, gameover_frame: str) -> Coroutine:
@@ -13,4 +14,4 @@ async def show_gameover(canvas, gameover_frame: str) -> Coroutine:
 
     while True:
         draw_frame(canvas, frame_start_row, frame_start_column, gameover_frame)
-        await asyncio.sleep(0)
+        await sleep(1)

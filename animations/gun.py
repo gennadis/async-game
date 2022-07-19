@@ -1,8 +1,8 @@
-import asyncio
 import curses
 from typing import Coroutine
 
 import settings
+from utils import sleep
 
 
 async def fire(canvas, row: int, column: int) -> Coroutine:
@@ -11,10 +11,10 @@ async def fire(canvas, row: int, column: int) -> Coroutine:
     columns_speed = settings.FIRE_COLUMN_SPEED
 
     canvas.addstr(round(row), round(column), "*")
-    await asyncio.sleep(0)
+    await sleep(1)
 
     canvas.addstr(round(row), round(column), "O")
-    await asyncio.sleep(0)
+    await sleep(1)
 
     canvas.addstr(round(row), round(column), " ")
 
@@ -29,7 +29,7 @@ async def fire(canvas, row: int, column: int) -> Coroutine:
 
     while 0 < row < max_row and 0 < column < max_column:
         canvas.addstr(round(row), round(column), symbol)
-        await asyncio.sleep(0)
+        await sleep(1)
         canvas.addstr(round(row), round(column), " ")
 
         for obstacle in settings.OBSTACLES:

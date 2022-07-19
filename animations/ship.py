@@ -1,4 +1,3 @@
-import asyncio
 from itertools import cycle
 from typing import Coroutine
 
@@ -7,7 +6,7 @@ from animations.gameover import show_gameover
 from animations.gun import fire
 from curses_tools import draw_frame, get_frame_size, read_controls
 from physics import update_speed
-from utils import load_frames
+from utils import load_frames, sleep
 
 
 async def fly_ship(canvas, row: int, column: int) -> Coroutine:
@@ -54,5 +53,5 @@ async def fly_ship(canvas, row: int, column: int) -> Coroutine:
                 await show_gameover(canvas, gameover_frame)
 
         draw_frame(canvas, row, column, frame)
-        await asyncio.sleep(0)
+        await sleep(1)
         draw_frame(canvas, row, column, frame, True)
