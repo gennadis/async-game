@@ -32,7 +32,10 @@ def draw(canvas):
         column=central_column,
     )
 
-    garbage_animation = garbage.fill_orbit_with_garbage(canvas)
+    garbage_animation = garbage.fill_orbit_with_garbage(
+        canvas,
+        garbage_speed=settings.GARBAGE_SPEED,
+    )
 
     years_animation = years.go(
         canvas,

@@ -47,7 +47,7 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     settings.OBSTACLES.remove(obstacle)
 
 
-async def fill_orbit_with_garbage(canvas):
+async def fill_orbit_with_garbage(canvas, garbage_speed: int):
     _, screen_width = canvas.getmaxyx()
     garbage_frames = load_frames(settings.GARBAGE_FRAMES)
     while True:
@@ -61,7 +61,7 @@ async def fill_orbit_with_garbage(canvas):
                     canvas,
                     column=column,
                     garbage_frame=frame,
-                    speed=settings.GARBAGE_SPEED,
+                    speed=garbage_speed,
                 )
             )
             await sleep(tic=delay)
