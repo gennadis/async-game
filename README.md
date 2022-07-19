@@ -21,4 +21,4 @@ cd async-game
 python3 main.py
 ```
 
-3. Move spaceship with arrow keys.
+3. Move spaceship with arrow keys. Fire a gun with `space` button after year 2020.
