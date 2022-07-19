@@ -1,5 +1,6 @@
 import asyncio
 import random
+from typing import Coroutine, Optional
 
 import settings
 from animations.explosion import explode
@@ -8,14 +9,14 @@ from curses_tools import draw_frame, get_frame_size
 from utils import load_frames, sleep
 
 
-async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
+async def fly_garbage(
+    canvas, column: int, garbage_frame: str, speed: float
+) -> Coroutine:
     """Animate garbage, flying from top to bottom. Сolumn position will stay same, as specified on start."""
-
     screen_height, screen_width = canvas.getmaxyx()
 
     column = max(column, 0)
     column = min(column, screen_width - 1)
-
     row = 0
 
     frame_size_row, frame_size_column = get_frame_size(garbage_frame)
@@ -47,9 +48,10 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     settings.OBSTACLES.remove(obstacle)
 
 
-async def fill_orbit_with_garbage(canvas, garbage_speed: int):
+async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
     _, screen_width = canvas.getmaxyx()
     garbage_frames = load_frames(settings.GARBAGE_FRAMES)
+
     while True:
         column = random.randint(1, screen_width)
         frame = random.choice(garbage_frames)
@@ -69,7 +71,7 @@ async def fill_orbit_with_garbage(canvas, garbage_speed: int):
             await asyncio.sleep(0)
 
 
-def get_garbage_delay_tics(year):
+def get_garbage_delay_tics(year) -> Optional[int]:
     if year < 1961:
         return None
     elif year < 1969:

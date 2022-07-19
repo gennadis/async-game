@@ -1,5 +1,6 @@
 import curses
 import random
+from typing import Coroutine
 
 from utils import sleep
 
@@ -16,7 +17,7 @@ def generate(canvas, total_stars: int, border_offset: int, symbols: str) -> list
     return stars
 
 
-async def blink(canvas, row: int, column: int, symbol: str):
+async def blink(canvas, row: int, column: int, symbol: str) -> Coroutine:
     while True:
         canvas.addstr(row, column, symbol, curses.A_DIM)
         await sleep(random.randint(1, 20))

@@ -1,10 +1,11 @@
 import asyncio
 import curses
+from typing import Coroutine
 
 import settings
 
 
-async def fire(canvas, row: int, column: int) -> None:
+async def fire(canvas, row: int, column: int) -> Coroutine:
     screen_height, screen_width = canvas.getmaxyx()
     rows_speed = settings.FIRE_ROW_SPEED
     columns_speed = settings.FIRE_COLUMN_SPEED

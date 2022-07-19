@@ -1,7 +1,8 @@
 import asyncio
+from typing import Coroutine
 
 
-async def sleep(tic=1):
+async def sleep(tic: int = 1) -> Coroutine:
     for _ in range(tic):
         await asyncio.sleep(0)
 

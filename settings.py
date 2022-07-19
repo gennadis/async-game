@@ -1,15 +1,3 @@
-def initialize():
-    """Initialize global variables."""
-    global COROUTINES
-    global OBSTACLES
-    global OBSTACLES_IN_LAST_COLLISIONS
-    global YEAR
-    COROUTINES = []
-    OBSTACLES = []
-    OBSTACLES_IN_LAST_COLLISIONS = []
-    YEAR = 1957
-
-
 DEBUG = False
 GAME_TIME_SPEED = 10  # The bigger the slower
 TIC_TIMEOUT = 0.1
@@ -69,3 +57,15 @@ EVENTS = {
     2011: "Messenger launch to Mercury",
     2020: "Take the plasma gun! Shoot the garbage!",
 }
+
+
+def initialize():
+    """Initialize global variables."""
+    global COROUTINES
+    global OBSTACLES
+    global OBSTACLES_IN_LAST_COLLISIONS
+    global YEAR
+    COROUTINES = []
+    OBSTACLES = []
+    OBSTACLES_IN_LAST_COLLISIONS = []
+    YEAR = 1957

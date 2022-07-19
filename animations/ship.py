@@ -1,5 +1,6 @@
 import asyncio
 from itertools import cycle
+from typing import Coroutine
 
 import settings
 from animations.gameover import show_gameover
@@ -9,7 +10,7 @@ from physics import update_speed
 from utils import load_frames
 
 
-async def fly_ship(canvas, row: int, column: int) -> None:
+async def fly_ship(canvas, row: int, column: int) -> Coroutine:
     screen_height, screen_width = canvas.getmaxyx()
     gameover_frame = load_frames(settings.GAMEOVER_FRAME)[0]
     ship_frames = load_frames(settings.SHIP_FRAMES, double=True)
@@ -47,6 +48,7 @@ async def fly_ship(canvas, row: int, column: int) -> None:
             settings.COROUTINES.append(
                 fire(canvas, row=row, column=column + 2)  # gun barrel sprite correction
             )
+
         for obstacle in settings.OBSTACLES:
             if obstacle.has_collision(row, column, frame_height, frame_width):
                 await show_gameover(canvas, gameover_frame)

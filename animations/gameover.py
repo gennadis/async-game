@@ -1,9 +1,10 @@
 import asyncio
+from typing import Coroutine
 
 from curses_tools import draw_frame, get_frame_size
 
 
-async def show_gameover(canvas, gameover_frame: str):
+async def show_gameover(canvas, gameover_frame: str) -> Coroutine:
     screen_height, screen_width = canvas.getmaxyx()
     frame_height, frame_width = get_frame_size(gameover_frame)
 
