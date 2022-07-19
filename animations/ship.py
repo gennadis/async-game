@@ -43,7 +43,7 @@ async def fly_ship(canvas, row: int, column: int) -> None:
         row += row_speed
         column += column_speed
 
-        if space_pressed:
+        if space_pressed and settings.YEAR >= 2020:
             settings.COROUTINES.append(
                 fire(canvas, row=row, column=column + 2)  # gun barrel sprite correction
             )

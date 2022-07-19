@@ -26,12 +26,6 @@ def draw(canvas):
         for row, column, symbol in generated_stars
     ]
 
-    fire_animation = gun.fire(
-        canvas,
-        row=central_row,
-        column=central_column,
-    )
-
     ship_animation = ship.fly_ship(
         canvas,
         row=central_row,
@@ -48,7 +42,6 @@ def draw(canvas):
     settings.COROUTINES.extend(
         [
             *stars_animation,
-            fire_animation,
             ship_animation,
             garbage_animation,
             years_animation,
