@@ -3,13 +3,15 @@ def initialize():
     global COROUTINES
     global OBSTACLES
     global OBSTACLES_IN_LAST_COLLISIONS
+    global YEAR
     COROUTINES = []
     OBSTACLES = []
     OBSTACLES_IN_LAST_COLLISIONS = []
+    YEAR = 1957
 
 
 DEBUG = False
-
+GAME_TIME_SPEED = 10  # The bigger the slower
 TIC_TIMEOUT = 0.1
 
 # Spaceship
@@ -25,7 +27,6 @@ STAR_SYMBOLS = "+*.:"
 
 # Garbage
 GARBAGE_SPEED = 0.5
-GARBAGE_DELAY = 10
 GARBAGE_FRAMES = [
     "animations/sprites/duck.txt",
     "animations/sprites/lamp.txt",
@@ -56,3 +57,15 @@ EXPLOSION_FRAMES = [
     "animations/sprites/explosion_3.txt",
     "animations/sprites/explosion_4.txt",
 ]
+
+# Events by years
+EVENTS = {
+    1957: "First Sputnik",
+    1961: "Gagarin flew!",
+    1969: "Armstrong got on the moon!",
+    1971: "First orbital space station Salute-1",
+    1981: "Flight of the Shuttle Columbia",
+    1998: "ISS start building",
+    2011: "Messenger launch to Mercury",
+    2020: "Take the plasma gun! Shoot the garbage!",
+}

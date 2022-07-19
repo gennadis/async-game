@@ -5,7 +5,7 @@ import settings
 from animations.explosion import explode
 from animations.obstacles import Obstacle, show_obstacles
 from curses_tools import draw_frame, get_frame_size
-from utils import load_frames
+from utils import load_frames, sleep
 
 
 async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
@@ -47,16 +47,40 @@ async def fly_garbage(canvas, column, garbage_frame: str, speed: float):
     settings.OBSTACLES.remove(obstacle)
 
 
-async def fill_orbit_with_garbage(canvas, delay: int):
+async def fill_orbit_with_garbage(canvas):
     _, screen_width = canvas.getmaxyx()
     garbage_frames = load_frames(settings.GARBAGE_FRAMES)
     while True:
         column = random.randint(1, screen_width)
         frame = random.choice(garbage_frames)
-        settings.COROUTINES.append(
-            fly_garbage(
-                canvas, column=column, garbage_frame=frame, speed=settings.GARBAGE_SPEED
+        delay = get_garbage_delay_tics(settings.YEAR)
+
+        if delay:
+            settings.COROUTINES.append(
+                fly_garbage(
+                    canvas,
+                    column=column,
+                    garbage_frame=frame,
+                    speed=settings.GARBAGE_SPEED,
+                )
             )
-        )
-        for _ in range(delay):
+            await sleep(tic=delay)
+        else:
             await asyncio.sleep(0)
+
+
+def get_garbage_delay_tics(year):
+    if year < 1961:
+        return None
+    elif year < 1969:
+        return 20
+    elif year < 1981:
+        return 14
+    elif year < 1995:
+        return 10
+    elif year < 2010:
+        return 8
+    elif year < 2020:
+        return 6
+    else:
+        return 2

@@ -2,7 +2,7 @@ import curses
 import time
 
 import settings
-from animations import garbage, gun, ship, stars
+from animations import garbage, gun, ship, stars, years
 
 
 def draw(canvas):
@@ -38,13 +38,21 @@ def draw(canvas):
         column=central_column,
     )
 
-    garbage_animation = garbage.fill_orbit_with_garbage(
+    garbage_animation = garbage.fill_orbit_with_garbage(canvas)
+
+    years_animation = years.go(
         canvas,
-        delay=settings.GARBAGE_DELAY,
+        game_time_speed=settings.GAME_TIME_SPEED,
     )
 
     settings.COROUTINES.extend(
-        [*stars_animation, fire_animation, ship_animation, garbage_animation]
+        [
+            *stars_animation,
+            fire_animation,
+            ship_animation,
+            garbage_animation,
+            years_animation,
+        ]
     )
 
     while settings.COROUTINES:
