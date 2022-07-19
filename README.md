@@ -3,6 +3,8 @@
 This simple game was built for `asyncio` learning purposes.  
 Powered by `curses`.
 
+![Demo](https://dvmn.org/media/lessons/ezgif-6-9ef2761efd97.gif)
+
 ## Features
 - Hundreds of blinking stars
 - Nice spaceship animation
