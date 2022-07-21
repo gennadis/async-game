@@ -33,9 +33,9 @@ async def fire(canvas, row: int, column: int) -> Coroutine:
         await sleep(1)
         canvas.addstr(round(row), round(column), " ")
 
-        for obstacle in global_vars.OBSTACLES:
+        for obstacle in global_vars.obstacles:
             if obstacle.has_collision(row, column):
-                global_vars.OBSTACLES_IN_LAST_COLLISIONS.append(obstacle)
+                global_vars.obstacles_in_last_collision.append(obstacle)
                 return
 
         row += rows_speed

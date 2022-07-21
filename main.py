@@ -39,7 +39,7 @@ def draw(canvas):
         game_time_speed=settings.GAME_TIME_SPEED,
     )
 
-    global_vars.COROUTINES.extend(
+    global_vars.coroutines.extend(
         [
             *stars_animation,
             ship_animation,
@@ -48,12 +48,12 @@ def draw(canvas):
         ]
     )
 
-    while global_vars.COROUTINES:
-        for coroutine in global_vars.COROUTINES.copy():
+    while global_vars.coroutines:
+        for coroutine in global_vars.coroutines.copy():
             try:
                 coroutine.send(None)
             except StopIteration:
-                global_vars.COROUTINES.remove(coroutine)
+                global_vars.coroutines.remove(coroutine)
 
         canvas.refresh()
         canvas.border()  # fix objects braking borders bug

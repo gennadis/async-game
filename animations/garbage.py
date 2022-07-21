@@ -22,10 +22,10 @@ async def fly_garbage(
     frame_size_row, frame_size_column = get_frame_size(garbage_frame)
     obstacle = Obstacle(row, column, frame_size_row, frame_size_column)
 
-    global_vars.OBSTACLES.append(obstacle)
+    global_vars.obstacles.append(obstacle)
 
     if settings.DEBUG:
-        global_vars.COROUTINES.append(show_obstacles(canvas, global_vars.OBSTACLES))
+        global_vars.coroutines.append(show_obstacles(canvas, global_vars.obstacles))
 
     while row < screen_height:
         draw_frame(canvas, row, column, garbage_frame)
@@ -33,9 +33,9 @@ async def fly_garbage(
         await sleep(1)
         draw_frame(canvas, row, column, garbage_frame, negative=True)
 
-        if obstacle in global_vars.OBSTACLES_IN_LAST_COLLISIONS:
-            global_vars.OBSTACLES_IN_LAST_COLLISIONS.remove(obstacle)
-            global_vars.OBSTACLES.remove(obstacle)
+        if obstacle in global_vars.obstacles_in_last_collision:
+            global_vars.obstacles_in_last_collision.remove(obstacle)
+            global_vars.obstacles.remove(obstacle)
             await explode(
                 canvas,
                 center_row=row + (frame_size_row / 2),
@@ -45,7 +45,7 @@ async def fly_garbage(
 
         row += speed
 
-    global_vars.OBSTACLES.remove(obstacle)
+    global_vars.obstacles.remove(obstacle)
 
 
 async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
@@ -55,10 +55,10 @@ async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
     while True:
         column = random.randint(1, screen_width)
         frame = random.choice(garbage_frames)
-        delay = get_garbage_delay_tics(global_vars.YEAR)
+        delay = get_garbage_delay_tics(global_vars.year)
 
         if delay:
-            global_vars.COROUTINES.append(
+            global_vars.coroutines.append(
                 fly_garbage(
                     canvas,
                     column=column,

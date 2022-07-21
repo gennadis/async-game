@@ -1,10 +1,10 @@
 def initialize():
     """Initialize global variables."""
-    global COROUTINES
-    global OBSTACLES
-    global OBSTACLES_IN_LAST_COLLISIONS
-    global YEAR
-    COROUTINES = []
-    OBSTACLES = []
-    OBSTACLES_IN_LAST_COLLISIONS = []
-    YEAR = 1957
+    global coroutines
+    global obstacles
+    global obstacles_in_last_collision
+    global year
+    coroutines = []
+    obstacles = []
+    obstacles_in_last_collision = []
+    year = 1957

@@ -44,12 +44,12 @@ async def fly_ship(canvas, row: int, column: int) -> Coroutine:
         row += row_speed
         column += column_speed
 
-        if space_pressed and global_vars.YEAR >= 2020:
-            global_vars.COROUTINES.append(
+        if space_pressed and global_vars.year >= 2020:
+            global_vars.coroutines.append(
                 fire(canvas, row=row, column=column + 2)  # gun barrel sprite correction
             )
 
-        for obstacle in global_vars.OBSTACLES:
+        for obstacle in global_vars.obstacles:
             if obstacle.has_collision(row, column, frame_height, frame_width):
                 await show_gameover(canvas, gameover_frame)
 
