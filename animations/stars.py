@@ -18,9 +18,10 @@ def generate(canvas, total_stars: int, border_offset: int, symbols: str) -> list
 
 
 async def blink(canvas, row: int, column: int, symbol: str) -> Coroutine:
+    star_dim_delay = random.randint(1, 20)
     while True:
         canvas.addstr(row, column, symbol, curses.A_DIM)
-        await sleep(random.randint(1, 20))
+        await sleep(star_dim_delay)
 
         canvas.addstr(row, column, symbol)
         await sleep(3)
