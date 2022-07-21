@@ -1,4 +1,5 @@
 import curses
+import random
 import time
 
 import global_vars
@@ -23,7 +24,13 @@ def draw(canvas):
         symbols=settings.STAR_SYMBOLS,
     )
     stars_animation = [
-        stars.blink(canvas, row, column, symbol)
+        stars.blink(
+            canvas,
+            row=row,
+            column=column,
+            symbol=symbol,
+            offset_tics=random.randint(1, settings.BLINK_OFFSET_MAX),
+        )
         for row, column, symbol in generated_stars
     ]
     ship_animation = ship.fly_ship(
