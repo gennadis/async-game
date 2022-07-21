@@ -1,8 +1,8 @@
 import random
 from typing import Coroutine, Optional
 
-import settings
 import global_vars
+import settings
 from animations.explosion import explode
 from animations.obstacles import Obstacle, show_obstacles
 from curses_tools import draw_frame, get_frame_size

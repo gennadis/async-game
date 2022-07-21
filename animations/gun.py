@@ -1,8 +1,8 @@
 import curses
 from typing import Coroutine
 
-import settings
 import global_vars
+import settings
 from utils import sleep
 
 

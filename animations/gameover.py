@@ -1,4 +1,3 @@
-import asyncio
 from typing import Coroutine
 
 from curses_tools import draw_frame, get_frame_size

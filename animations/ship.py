@@ -1,8 +1,8 @@
 from itertools import cycle
 from typing import Coroutine
 
-import settings
 import global_vars
+import settings
 from animations.gameover import show_gameover
 from animations.gun import fire
 from curses_tools import draw_frame, get_frame_size, read_controls

@@ -1,8 +1,8 @@
 import curses
 import time
 
-import settings
 import global_vars
+import settings
 from animations import garbage, ship, stars, years
 
 

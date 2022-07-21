@@ -1,5 +1,4 @@
 from curses_tools import draw_frame
-
 from utils import sleep
 
 
