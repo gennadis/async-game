@@ -2,6 +2,7 @@ import curses
 from typing import Coroutine
 
 import settings
+import global_vars
 from utils import sleep
 
 
@@ -32,9 +33,9 @@ async def fire(canvas, row: int, column: int) -> Coroutine:
         await sleep(1)
         canvas.addstr(round(row), round(column), " ")
 
-        for obstacle in settings.OBSTACLES:
+        for obstacle in global_vars.OBSTACLES:
             if obstacle.has_collision(row, column):
-                settings.OBSTACLES_IN_LAST_COLLISIONS.append(obstacle)
+                global_vars.OBSTACLES_IN_LAST_COLLISIONS.append(obstacle)
                 return
 
         row += rows_speed

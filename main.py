@@ -2,6 +2,7 @@ import curses
 import time
 
 import settings
+import global_vars
 from animations import garbage, ship, stars, years
 
 
@@ -38,7 +39,7 @@ def draw(canvas):
         game_time_speed=settings.GAME_TIME_SPEED,
     )
 
-    settings.COROUTINES.extend(
+    global_vars.COROUTINES.extend(
         [
             *stars_animation,
             ship_animation,
@@ -47,12 +48,12 @@ def draw(canvas):
         ]
     )
 
-    while settings.COROUTINES:
-        for coroutine in settings.COROUTINES.copy():
+    while global_vars.COROUTINES:
+        for coroutine in global_vars.COROUTINES.copy():
             try:
                 coroutine.send(None)
             except StopIteration:
-                settings.COROUTINES.remove(coroutine)
+                global_vars.COROUTINES.remove(coroutine)
 
         canvas.refresh()
         canvas.border()  # fix objects braking borders bug
@@ -60,6 +61,6 @@ def draw(canvas):
 
 
 if __name__ == "__main__":
-    settings.initialize()
+    global_vars.initialize()
     curses.update_lines_cols()
     curses.wrapper(draw)

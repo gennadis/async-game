@@ -2,6 +2,7 @@ import random
 from typing import Coroutine, Optional
 
 import settings
+import global_vars
 from animations.explosion import explode
 from animations.obstacles import Obstacle, show_obstacles
 from curses_tools import draw_frame, get_frame_size
@@ -21,10 +22,10 @@ async def fly_garbage(
     frame_size_row, frame_size_column = get_frame_size(garbage_frame)
     obstacle = Obstacle(row, column, frame_size_row, frame_size_column)
 
-    settings.OBSTACLES.append(obstacle)
+    global_vars.OBSTACLES.append(obstacle)
 
     if settings.DEBUG:
-        settings.COROUTINES.append(show_obstacles(canvas, settings.OBSTACLES))
+        global_vars.COROUTINES.append(show_obstacles(canvas, global_vars.OBSTACLES))
 
     while row < screen_height:
         draw_frame(canvas, row, column, garbage_frame)
@@ -32,9 +33,9 @@ async def fly_garbage(
         await sleep(1)
         draw_frame(canvas, row, column, garbage_frame, negative=True)
 
-        if obstacle in settings.OBSTACLES_IN_LAST_COLLISIONS:
-            settings.OBSTACLES_IN_LAST_COLLISIONS.remove(obstacle)
-            settings.OBSTACLES.remove(obstacle)
+        if obstacle in global_vars.OBSTACLES_IN_LAST_COLLISIONS:
+            global_vars.OBSTACLES_IN_LAST_COLLISIONS.remove(obstacle)
+            global_vars.OBSTACLES.remove(obstacle)
             await explode(
                 canvas,
                 center_row=row + (frame_size_row / 2),
@@ -44,7 +45,7 @@ async def fly_garbage(
 
         row += speed
 
-    settings.OBSTACLES.remove(obstacle)
+    global_vars.OBSTACLES.remove(obstacle)
 
 
 async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
@@ -54,10 +55,10 @@ async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
     while True:
         column = random.randint(1, screen_width)
         frame = random.choice(garbage_frames)
-        delay = get_garbage_delay_tics(settings.YEAR)
+        delay = get_garbage_delay_tics(global_vars.YEAR)
 
         if delay:
-            settings.COROUTINES.append(
+            global_vars.COROUTINES.append(
                 fly_garbage(
                     canvas,
                     column=column,

@@ -2,6 +2,7 @@ from itertools import cycle
 from typing import Coroutine
 
 import settings
+import global_vars
 from animations.gameover import show_gameover
 from animations.gun import fire
 from curses_tools import draw_frame, get_frame_size, read_controls
@@ -43,12 +44,12 @@ async def fly_ship(canvas, row: int, column: int) -> Coroutine:
         row += row_speed
         column += column_speed
 
-        if space_pressed and settings.YEAR >= 2020:
-            settings.COROUTINES.append(
+        if space_pressed and global_vars.YEAR >= 2020:
+            global_vars.COROUTINES.append(
                 fire(canvas, row=row, column=column + 2)  # gun barrel sprite correction
             )
 
-        for obstacle in settings.OBSTACLES:
+        for obstacle in global_vars.OBSTACLES:
             if obstacle.has_collision(row, column, frame_height, frame_width):
                 await show_gameover(canvas, gameover_frame)
 
