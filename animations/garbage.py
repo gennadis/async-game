@@ -48,9 +48,10 @@ async def fly_garbage(
     global_vars.obstacles.remove(obstacle)
 
 
-async def fill_orbit_with_garbage(canvas, garbage_speed: int) -> Coroutine:
+async def fill_orbit_with_garbage(
+    canvas, garbage_frames: list[str], garbage_speed: int
+) -> Coroutine:
     _, screen_width = canvas.getmaxyx()
-    garbage_frames = load_frames(settings.GARBAGE_FRAMES)
 
     while True:
         column = random.randint(1, screen_width)

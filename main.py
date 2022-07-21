@@ -4,6 +4,7 @@ import time
 import global_vars
 import settings
 from animations import garbage, ship, stars, years
+from utils import load_frames
 
 
 def draw(canvas):
@@ -30,8 +31,10 @@ def draw(canvas):
         row=central_row,
         column=central_column,
     )
+    garbage_frames = load_frames(settings.GARBAGE_FRAMES)
     garbage_animation = garbage.fill_orbit_with_garbage(
         canvas,
+        garbage_frames=garbage_frames,
         garbage_speed=settings.GARBAGE_SPEED,
     )
     years_animation = years.go(
