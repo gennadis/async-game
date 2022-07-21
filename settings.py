@@ -1,5 +1,5 @@
 DEBUG = False
-GAME_TIME_SPEED = 1  # The bigger the slower
+GAME_TIME_SPEED = 10  # The bigger the slower
 TIC_TIMEOUT = 0.1
 
 # Spaceship
